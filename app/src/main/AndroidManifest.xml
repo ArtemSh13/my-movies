@@ -16,10 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyMovies">
         <activity
-            android:name=".PosterActivity"
+            android:name=".ui.poster.PosterActivity"
             android:exported="false" />
         <activity
-            android:name=".MoviesActivity"
+            android:name=".ui.movies.MoviesActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,5 +1,6 @@
-package com.example.mymovies
+package com.example.mymovies.data.network
 
+import com.example.mymovies.data.dto.MoviesSearchResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

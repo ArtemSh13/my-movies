@@ -1,4 +1,4 @@
-package com.example.mymovies
+package com.example.mymovies.ui.movies
 
 import android.app.Activity
 import android.content.Intent
@@ -19,6 +19,11 @@ import retrofit2.Response
 import retrofit2.converter.gson.GsonConverterFactory
 import android.text.TextWatcher
 import android.widget.Toast
+import com.example.mymovies.ui.poster.PosterActivity
+import com.example.mymovies.R
+import com.example.mymovies.data.dto.MoviesSearchResponse
+import com.example.mymovies.data.network.IMDbApiService
+import com.example.mymovies.domain.models.Movie
 
 class MoviesActivity : Activity() {
 
