@@ -7,7 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import com.example.mymovies.ui.poster.PosterActivity
 import com.example.mymovies.R
-import com.example.mymovies.Creator
+import com.example.mymovies.util.Creator
 
 class MoviesActivity : Activity() {
 
