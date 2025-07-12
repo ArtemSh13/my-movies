@@ -22,7 +22,7 @@ class MoviesSearchController(private val activity: Activity,
                              private val adapter: MoviesAdapter
 ) {
 
-    private val moviesInteractor = Creator.provideMoviesInteractor()
+    private val moviesInteractor = Creator.provideMoviesInteractor(activity)
 
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
