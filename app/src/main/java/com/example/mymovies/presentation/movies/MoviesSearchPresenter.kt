@@ -18,8 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mymovies.R
 import com.example.mymovies.ui.movies.MoviesAdapter
 
-class MoviesSearchController(private val activity: Activity,
-                             private val adapter: MoviesAdapter
+class MoviesSearchPresenter(private val activity: Activity,
+                            private val adapter: MoviesAdapter
 ) {
 
     private val moviesInteractor = Creator.provideMoviesInteractor(activity)

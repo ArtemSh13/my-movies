@@ -28,17 +28,17 @@ class MoviesActivity : Activity(), MoviesView {
 
     private val handler = Handler(Looper.getMainLooper())
 
-    private val moviesSearchController = Creator.provideMoviesSearchController(this, adapter)
+    private val moviesSearchPresenter = Creator.provideMoviesSearchPresenter(this, adapter)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movies)
-        moviesSearchController.onCreate()
+        moviesSearchPresenter.onCreate()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        moviesSearchController.onDestroy()
+        moviesSearchPresenter.onDestroy()
     }
 
     private fun clickDebounce() : Boolean {
