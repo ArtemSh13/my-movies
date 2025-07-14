@@ -1,6 +1,11 @@
 package com.example.mymovies.presentation.movies
 
 interface MoviesView {
-    // Сюда мы будем добавлять методы
-    // для взаимодействия View и Presenter
+
+    fun showPlaceholderMessage(isVisible: Boolean)
+
+    fun showMoviesList(isVisible: Boolean)
+
+    fun showProgressBar(isVisible: Boolean)
+
 }

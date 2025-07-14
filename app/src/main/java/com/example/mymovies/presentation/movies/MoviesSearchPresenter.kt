@@ -54,21 +54,23 @@ class MoviesSearchPresenter(private val view: MoviesView,
 
     private fun searchRequest(newSearchText: String) {
         if (newSearchText.isNotEmpty()) {
-            placeholderMessage.visibility = View.GONE
-            moviesList.visibility = View.GONE
-            progressBar.visibility = View.VISIBLE
+            // Заменили работу с элементами UI на
+            // вызовы методов интерфейса MoviesView
+            view.showPlaceholderMessage(false)
+            view.showMoviesList(false)
+            view.showProgressBar(true)
 
             moviesInteractor.searchMovies(
                 newSearchText,
                 object : MoviesInteractor.MoviesConsumer {
                     override fun consume(foundMovies: List<Movie>?, errorMessage: String?) {
                         handler.post {
-                            progressBar.visibility = View.GONE
+                            view.showProgressBar(false)
                             if (foundMovies != null) {
                                 movies.clear()
                                 movies.addAll(foundMovies)
                                 adapter.notifyDataSetChanged()
-                                moviesList.visibility = View.VISIBLE
+                                view.showMoviesList(true)
                             }
                             if (errorMessage != null) {
                                 showMessage(view.getString(R.string.something_went_wrong), errorMessage)
@@ -86,7 +88,7 @@ class MoviesSearchPresenter(private val view: MoviesView,
 
     private fun showMessage(text: String, additionalMessage: String) {
         if (text.isNotEmpty()) {
-            placeholderMessage.visibility = View.VISIBLE
+            view.showPlaceholderMessage(true)
             movies.clear()
             adapter.notifyDataSetChanged()
             placeholderMessage.text = text
@@ -95,11 +97,11 @@ class MoviesSearchPresenter(private val view: MoviesView,
                     .show()
             }
         } else {
-            placeholderMessage.visibility = View.GONE
+            view.showPlaceholderMessage(false)
         }
     }
 
     private fun hideMessage() {
-        placeholderMessage.visibility = View.GONE
+        view.showPlaceholderMessage(false)
     }
 }
