@@ -38,7 +38,11 @@ class MoviesActivity : Activity(), MoviesView {
 
     private val handler = Handler(Looper.getMainLooper())
 
-    private val moviesSearchPresenter = Creator.provideMoviesSearchPresenter(this, adapter)
+    private val moviesSearchPresenter = Creator.provideMoviesSearchPresenter(
+        moviesView = this,
+        context = this,
+        adapter = adapter,
+    )
 
     private lateinit var queryInput: EditText
     private lateinit var placeholderMessage: TextView
@@ -82,7 +86,7 @@ class MoviesActivity : Activity(), MoviesView {
         moviesSearchPresenter.onDestroy()
     }
 
-    private fun clickDebounce() : Boolean {
+    private fun clickDebounce(): Boolean {
         val current = isClickAllowed
         if (isClickAllowed) {
             isClickAllowed = false

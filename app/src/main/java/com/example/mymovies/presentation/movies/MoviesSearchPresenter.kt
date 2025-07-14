@@ -1,28 +1,22 @@
 package com.example.mymovies.presentation.movies
 
-import android.app.Activity
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import com.example.mymovies.util.Creator
-import com.example.mymovies.domain.models.Movie
+import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.View
-import com.example.mymovies.domain.api.MoviesInteractor
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mymovies.R
+import com.example.mymovies.domain.api.MoviesInteractor
+import com.example.mymovies.domain.models.Movie
 import com.example.mymovies.ui.movies.MoviesAdapter
+import com.example.mymovies.util.Creator
 
-class MoviesSearchPresenter(private val view: MoviesView,
-                            private val adapter: MoviesAdapter
+class MoviesSearchPresenter(
+    private val view: MoviesView,
+    private val context: Context,
+    private val adapter: MoviesAdapter
 ) {
 
-    private val moviesInteractor = Creator.provideMoviesInteractor(view)
+    private val moviesInteractor = Creator.provideMoviesInteractor(context)
     private val handler = Handler(Looper.getMainLooper())
 
     private var lastSearchText: String? = null
@@ -73,9 +67,12 @@ class MoviesSearchPresenter(private val view: MoviesView,
                                 view.showMoviesList(true)
                             }
                             if (errorMessage != null) {
-                                showMessage(view.getString(R.string.something_went_wrong), errorMessage)
+                                showMessage(
+                                    context.getString(R.string.something_went_wrong),
+                                    errorMessage
+                                )
                             } else if (movies.isEmpty()) {
-                                showMessage(view.getString(R.string.nothing_found), "")
+                                showMessage(context.getString(R.string.nothing_found), "")
                             } else {
                                 hideMessage()
                             }
@@ -93,7 +90,7 @@ class MoviesSearchPresenter(private val view: MoviesView,
             adapter.notifyDataSetChanged()
             view.changePlaceholderText(text)
             if (additionalMessage.isNotEmpty()) {
-                Toast.makeText(view, additionalMessage, Toast.LENGTH_LONG)
+                Toast.makeText(context, additionalMessage, Toast.LENGTH_LONG)
                     .show()
             }
         } else {
