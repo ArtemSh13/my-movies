@@ -104,4 +104,8 @@ class MoviesActivity : Activity(), MoviesView {
     override fun showProgressBar(isVisible: Boolean) {
         progressBar.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
+
+    override fun changePlaceholderText(newPlaceholderText: String) {
+        placeholderMessage.text = newPlaceholderText
+    }
 }

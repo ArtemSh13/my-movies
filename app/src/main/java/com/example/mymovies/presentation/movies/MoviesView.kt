@@ -8,4 +8,6 @@ interface MoviesView {
 
     fun showProgressBar(isVisible: Boolean)
 
+    fun changePlaceholderText(newPlaceholderText: String)
+
 }

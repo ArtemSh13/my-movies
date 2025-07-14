@@ -91,9 +91,9 @@ class MoviesSearchPresenter(private val view: MoviesView,
             view.showPlaceholderMessage(true)
             movies.clear()
             adapter.notifyDataSetChanged()
-            placeholderMessage.text = text
+            view.changePlaceholderText(text)
             if (additionalMessage.isNotEmpty()) {
-                Toast.makeText(activity, additionalMessage, Toast.LENGTH_LONG)
+                Toast.makeText(view, additionalMessage, Toast.LENGTH_LONG)
                     .show()
             }
         } else {
