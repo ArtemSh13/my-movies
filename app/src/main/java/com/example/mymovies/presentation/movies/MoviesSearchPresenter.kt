@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mymovies.R
 import com.example.mymovies.ui.movies.MoviesAdapter
 
-class MoviesSearchPresenter(private val activity: Activity,
+class MoviesSearchPresenter(private val view: MoviesView,
                             private val adapter: MoviesAdapter
 ) {
 
