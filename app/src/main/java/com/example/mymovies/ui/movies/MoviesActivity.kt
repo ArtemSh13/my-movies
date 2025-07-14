@@ -31,6 +31,8 @@ class MoviesActivity : Activity(), MoviesView {
         }
     }
 
+    private var textWatcher: TextWatcher? = null
+
     private var isClickAllowed = true
 
     private val handler = Handler(Looper.getMainLooper())
@@ -54,24 +56,28 @@ class MoviesActivity : Activity(), MoviesView {
         moviesList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         moviesList.adapter = adapter
 
-        queryInput.addTextChangedListener(object : TextWatcher {
+        textWatcher = object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                moviesSearchPresenter.searchDebounce()
+                moviesSearchPresenter.searchDebounce(
+                    changedText = s?.toString() ?: ""
+                )
             }
 
             override fun afterTextChanged(p0: Editable?) {
             }
 
-        })
+        }
+        textWatcher?.let { queryInput.addTextChangedListener(it) }
 
         moviesSearchPresenter.onCreate()
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        textWatcher?.let { queryInput.removeTextChangedListener(it) }
         moviesSearchPresenter.onDestroy()
     }
 
