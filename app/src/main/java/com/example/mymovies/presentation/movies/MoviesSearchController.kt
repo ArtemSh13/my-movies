@@ -1,4 +1,4 @@
-package com.example.mymovies.presentation
+package com.example.mymovies.presentation.movies
 
 import android.app.Activity
 import android.widget.EditText

@@ -7,7 +7,7 @@ import com.example.mymovies.data.network.RetrofitNetworkClient
 import com.example.mymovies.domain.api.MoviesInteractor
 import com.example.mymovies.domain.api.MoviesRepository
 import com.example.mymovies.domain.impl.MoviesInteractorImpl
-import com.example.mymovies.presentation.MoviesSearchController
+import com.example.mymovies.presentation.movies.MoviesSearchController
 import com.example.mymovies.presentation.PosterController
 import com.example.mymovies.ui.movies.MoviesAdapter
 
