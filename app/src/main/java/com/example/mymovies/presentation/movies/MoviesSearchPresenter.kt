@@ -28,11 +28,6 @@ class MoviesSearchPresenter(private val view: MoviesView,
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 
-    private lateinit var queryInput: EditText
-    private lateinit var placeholderMessage: TextView
-    private lateinit var moviesList: RecyclerView
-    private lateinit var progressBar: ProgressBar
-
     private val movies = ArrayList<Movie>()
 
     private val handler = Handler(Looper.getMainLooper())
@@ -40,35 +35,14 @@ class MoviesSearchPresenter(private val view: MoviesView,
     private val searchRunnable = Runnable { searchRequest() }
 
     fun onCreate() {
-        placeholderMessage = activity.findViewById(R.id.placeholderMessage)
-        queryInput = activity.findViewById(R.id.queryInput)
-        moviesList = activity.findViewById(R.id.locations)
-        progressBar = activity.findViewById(R.id.progressBar)
-
         adapter.movies = movies
-
-        moviesList.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        moviesList.adapter = adapter
-
-        queryInput.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                searchDebounce()
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-            }
-
-        })
     }
 
     fun onDestroy() {
         handler.removeCallbacks(searchRunnable)
     }
 
-    private fun searchDebounce() {
+    fun searchDebounce() {
         handler.removeCallbacks(searchRunnable)
         handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
     }
