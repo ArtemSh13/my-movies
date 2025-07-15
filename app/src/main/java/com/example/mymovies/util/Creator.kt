@@ -8,9 +8,9 @@ import com.example.mymovies.domain.api.MoviesInteractor
 import com.example.mymovies.domain.api.MoviesRepository
 import com.example.mymovies.domain.impl.MoviesInteractorImpl
 import com.example.mymovies.presentation.movies.MoviesSearchPresenter
-import com.example.mymovies.presentation.PosterController
+import com.example.mymovies.presentation.poster.PosterPresenter
 import com.example.mymovies.presentation.movies.MoviesView
-import com.example.mymovies.ui.movies.MoviesAdapter
+import com.example.mymovies.presentation.poster.PosterView
 
 object Creator {
     private fun getMoviesRepository(context: Context): MoviesRepository {
@@ -31,7 +31,7 @@ object Creator {
         )
     }
 
-    fun providePosterController(activity: Activity): PosterController {
-        return PosterController(activity)
+    fun providePosterPresenter(view: PosterView, posterUrl: String): PosterPresenter {
+        return PosterPresenter(view, posterUrl)
     }
 }
