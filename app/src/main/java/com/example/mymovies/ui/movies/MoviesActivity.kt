@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mymovies.ui.poster.PosterActivity
@@ -116,5 +117,12 @@ class MoviesActivity : Activity(), MoviesView {
         adapter.movies.clear()
         adapter.movies.addAll(newMoviesList)
         adapter.notifyDataSetChanged()
+    }
+
+    override fun showAdditionalMessage(text: String) {
+        if (text.isNotEmpty()) {
+            Toast.makeText(this, text, Toast.LENGTH_LONG)
+                .show()
+        }
     }
 }
