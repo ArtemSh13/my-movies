@@ -12,8 +12,7 @@ import com.example.mymovies.util.Creator
 
 class MoviesSearchPresenter(
     private val view: MoviesView,
-    private val context: Context,
-    private val adapter: MoviesAdapter
+    private val context: Context
 ) {
 
     private val moviesInteractor = Creator.provideMoviesInteractor(context)
@@ -31,10 +30,6 @@ class MoviesSearchPresenter(
     }
 
     private val movies = ArrayList<Movie>()
-
-    fun onCreate() {
-        adapter.movies = movies
-    }
 
     fun onDestroy() {
         handler.removeCallbacks(searchRunnable)
@@ -63,7 +58,7 @@ class MoviesSearchPresenter(
                             if (foundMovies != null) {
                                 movies.clear()
                                 movies.addAll(foundMovies)
-                                adapter.notifyDataSetChanged()
+                                view.updateMoviesList(movies)
                                 view.showMoviesList(true)
                             }
                             if (errorMessage != null) {
@@ -87,7 +82,7 @@ class MoviesSearchPresenter(
         if (text.isNotEmpty()) {
             view.showPlaceholderMessage(true)
             movies.clear()
-            adapter.notifyDataSetChanged()
+            view.updateMoviesList(movies)
             view.changePlaceholderText(text)
             if (additionalMessage.isNotEmpty()) {
                 Toast.makeText(context, additionalMessage, Toast.LENGTH_LONG)
