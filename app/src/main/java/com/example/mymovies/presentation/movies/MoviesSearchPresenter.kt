@@ -3,11 +3,9 @@ package com.example.mymovies.presentation.movies
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import android.widget.Toast
 import com.example.mymovies.R
 import com.example.mymovies.domain.api.MoviesInteractor
 import com.example.mymovies.domain.models.Movie
-import com.example.mymovies.ui.movies.MoviesAdapter
 import com.example.mymovies.util.Creator
 
 class MoviesSearchPresenter(
@@ -84,7 +82,7 @@ class MoviesSearchPresenter(
             movies.clear()
             view.updateMoviesList(movies)
             view.changePlaceholderText(text)
-            view.showAdditionalMessage(additionalMessage)
+            view.showToast(additionalMessage)
         } else {
             view.showPlaceholderMessage(false)
         }

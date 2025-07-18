@@ -119,9 +119,9 @@ class MoviesActivity : Activity(), MoviesView {
         adapter.notifyDataSetChanged()
     }
 
-    override fun showAdditionalMessage(text: String) {
-        if (text.isNotEmpty()) {
-            Toast.makeText(this, text, Toast.LENGTH_LONG)
+    override fun showToast(additionalMessage: String) {
+        if (additionalMessage.isNotEmpty()) {
+            Toast.makeText(this, additionalMessage, Toast.LENGTH_LONG)
                 .show()
         }
     }
