@@ -8,23 +8,13 @@ import com.example.mymovies.domain.api.MoviesInteractor
 import com.example.mymovies.domain.models.Movie
 import com.example.mymovies.ui.movies.MoviesState
 import com.example.mymovies.util.Creator
+import moxy.MvpPresenter
 
-class MoviesSearchPresenter(
+class MoviesSearchPresenter (
     private val context: Context
-) {
+)  : MvpPresenter<MoviesView>() {
 
-    private var view: MoviesView? = null
-    private var state: MoviesState? = null
     private var latestSearchText: String? = null
-
-    fun attachView(view: MoviesView) {
-        this.view = view
-        state?.let { view.render(it) }
-    }
-
-    fun detachView() {
-        this.view = null
-    }
 
     private val moviesInteractor = Creator.provideMoviesInteractor(context)
     private val handler = Handler(Looper.getMainLooper())
@@ -42,8 +32,8 @@ class MoviesSearchPresenter(
 
     private val movies = ArrayList<Movie>()
 
-    fun onDestroy() {
-        handler.removeCallbacks(searchRunnable)
+    override fun onDestroy() {
+        handler.removeCallbacksAndMessages(searchRunnable)
     }
 
     fun searchDebounce(changedText: String) {
@@ -77,7 +67,7 @@ class MoviesSearchPresenter(
                                         errorMessage = context.getString(R.string.something_went_wrong),
                                     )
                                 )
-                                view?.showToast(errorMessage)
+                                viewState.showToast(errorMessage)
                             }
 
                             movies.isEmpty() -> {
@@ -104,7 +94,6 @@ class MoviesSearchPresenter(
     }
 
     private fun renderState(state: MoviesState) {
-        this.state = state
-        this.view?.render(state)
+        viewState.render(state)
     }
 }
