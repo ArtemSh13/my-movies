@@ -97,13 +97,22 @@ class MoviesActivity : Activity(), MoviesView {
 
     // Добавляем методы для изменения видимости UI-элементов
 
-    override fun showLoading() {
+    override fun render(state: MoviesState) {
+        when (state) {
+            is MoviesState.Loading -> showLoading()
+            is MoviesState.Content -> showContent(state.movies)
+            is MoviesState.Error -> showError(state.errorMessage)
+            is MoviesState.Empty -> showEmpty(state.message)
+        }
+    }
+
+    private fun showLoading() {
         moviesList.visibility = View.GONE
         placeholderMessage.visibility = View.GONE
         progressBar.visibility = View.VISIBLE
     }
 
-    override fun showError(errorMessage: String) {
+    private fun showError(errorMessage: String) {
         moviesList.visibility = View.GONE
         placeholderMessage.visibility = View.VISIBLE
         progressBar.visibility = View.GONE
@@ -111,11 +120,11 @@ class MoviesActivity : Activity(), MoviesView {
         placeholderMessage.text = errorMessage
     }
 
-    override fun showEmpty(emptyMessage: String) {
+    private fun showEmpty(emptyMessage: String) {
         showError(emptyMessage)
     }
 
-    override fun showContent(movies: List<Movie>) {
+    private fun showContent(movies: List<Movie>) {
         moviesList.visibility = View.VISIBLE
         placeholderMessage.visibility = View.GONE
         progressBar.visibility = View.GONE

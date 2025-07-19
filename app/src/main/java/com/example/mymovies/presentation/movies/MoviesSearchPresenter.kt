@@ -6,6 +6,7 @@ import android.os.Looper
 import com.example.mymovies.R
 import com.example.mymovies.domain.api.MoviesInteractor
 import com.example.mymovies.domain.models.Movie
+import com.example.mymovies.ui.movies.MoviesState
 import com.example.mymovies.util.Creator
 
 class MoviesSearchPresenter(
@@ -41,7 +42,9 @@ class MoviesSearchPresenter(
 
     private fun searchRequest(newSearchText: String) {
         if (newSearchText.isNotEmpty()) {
-            view.showLoading()
+            view.render(
+                MoviesState.Loading
+            )
 
             moviesInteractor.searchMovies(newSearchText, object : MoviesInteractor.MoviesConsumer {
                 override fun consume(foundMovies: List<Movie>?, errorMessage: String?) {
@@ -53,16 +56,28 @@ class MoviesSearchPresenter(
 
                         when {
                             errorMessage != null -> {
-                                view.showError(context.getString(R.string.something_went_wrong))
+                                view.render(
+                                    MoviesState.Error(
+                                        errorMessage = context.getString(R.string.something_went_wrong),
+                                    )
+                                )
                                 view.showToast(errorMessage)
                             }
 
                             movies.isEmpty() -> {
-                                view.showEmpty(context.getString(R.string.nothing_found))
+                                view.render(
+                                    MoviesState.Empty(
+                                        message = context.getString(R.string.nothing_found),
+                                    )
+                                )
                             }
 
                             else -> {
-                                view.showContent(movies)
+                                view.render(
+                                    MoviesState.Content(
+                                        movies = movies,
+                                    )
+                                )
                             }
                         }
 
