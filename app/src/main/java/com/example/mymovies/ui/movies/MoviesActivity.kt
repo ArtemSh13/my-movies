@@ -62,8 +62,6 @@ class MoviesActivity : Activity(), MoviesView {
             (this.applicationContext as? MoviesApplication)?.moviesSearchPresenter = moviesSearchPresenter
         }
 
-        moviesSearchPresenter?.attachView(this)
-
         placeholderMessage = findViewById(R.id.placeholderMessage)
         queryInput = findViewById(R.id.queryInput)
         moviesList = findViewById(R.id.locations)
@@ -88,6 +86,31 @@ class MoviesActivity : Activity(), MoviesView {
         }
         textWatcher?.let { queryInput.addTextChangedListener(it) }
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        moviesSearchPresenter?.attachView(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        moviesSearchPresenter?.attachView(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        moviesSearchPresenter?.detachView()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        moviesSearchPresenter?.detachView()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        moviesSearchPresenter?.detachView()
     }
 
     override fun onDestroy() {
