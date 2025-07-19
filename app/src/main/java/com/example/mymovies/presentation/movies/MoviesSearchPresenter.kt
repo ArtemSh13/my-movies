@@ -10,9 +10,18 @@ import com.example.mymovies.ui.movies.MoviesState
 import com.example.mymovies.util.Creator
 
 class MoviesSearchPresenter(
-    private val view: MoviesView,
     private val context: Context
 ) {
+
+    private var view: MoviesView? = null
+
+    fun attachView(view: MoviesView) {
+        this.view = view
+    }
+
+    fun detachView() {
+        this.view = null
+    }
 
     private val moviesInteractor = Creator.provideMoviesInteractor(context)
     private val handler = Handler(Looper.getMainLooper())
@@ -42,7 +51,7 @@ class MoviesSearchPresenter(
 
     private fun searchRequest(newSearchText: String) {
         if (newSearchText.isNotEmpty()) {
-            view.render(
+            view?.render(
                 MoviesState.Loading
             )
 
@@ -56,16 +65,16 @@ class MoviesSearchPresenter(
 
                         when {
                             errorMessage != null -> {
-                                view.render(
+                                view?.render(
                                     MoviesState.Error(
                                         errorMessage = context.getString(R.string.something_went_wrong),
                                     )
                                 )
-                                view.showToast(errorMessage)
+                                view?.showToast(errorMessage)
                             }
 
                             movies.isEmpty() -> {
-                                view.render(
+                                view?.render(
                                     MoviesState.Empty(
                                         message = context.getString(R.string.nothing_found),
                                     )
@@ -73,7 +82,7 @@ class MoviesSearchPresenter(
                             }
 
                             else -> {
-                                view.render(
+                                view?.render(
                                     MoviesState.Content(
                                         movies = movies,
                                     )
